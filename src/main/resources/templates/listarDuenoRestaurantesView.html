@@ -1,0 +1,46 @@
+<!-- src/main/resources/templates/listarDuenosRestaurantesView.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Listado de Dueños de Restaurantes</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- Inclusión del fragmento de encabezado -->
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container" style="margin-top:90px;">
+  <h1>Listado de Dueños de Restaurantes</h1>
+  <div class="mb-3">
+    <a th:href="@{/formDuenoRestaurante}" class="btn btn-success">Crear Dueño de Restaurante</a>
+    <a th:href="@{/download/duenosRestaurantes/pdf}" class="btn btn-danger">Descargar PDF</a>
+    <a th:href="@{/download/duenosRestaurantes/xls}" class="btn btn-info">Descargar XLS</a>
+  </div>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Email</th>
+      <!-- Agrega más columnas según tus necesidades -->
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="dueno : ${duenos}">
+      <td th:text="${dueno.id}"></td>
+      <td th:text="${dueno.nombre}"></td>
+      <td th:text="${dueno.correoElectronico}"></td>
+      <!-- Agrega más columnas según tus necesidades -->
+      <td>
+        <a th:href="@{/formDuenoRestaurante/{id}(id=${dueno.id})}" class="btn btn-primary btn-sm">Editar</a>
+        <a th:href="@{/eliminarDuenoRestaurante/{id}(id=${dueno.id})}" class="btn btn-danger btn-sm"
+           onclick="return confirm('¿Estás seguro de eliminar este dueño de restaurante?');">Eliminar</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
+

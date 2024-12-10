@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulario de Repartidor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- Inclusión del fragmento de encabezado -->
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container" style="margin-top:90px;">
+    <h1 th:text="${titulo}">Formulario de Repartidor</h1>
+    <form th:action="@{/guardarRepartidor}" th:object="${repartidor}" method="post">
+        <!-- Campo Nombre -->
+        <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" th:field="*{nombre}" class="form-control" placeholder="Ingrese el nombre del repartidor"/>
+            <!-- Mensaje de error de validación (opcional) -->
+            <div th:if="${#fields.hasErrors('nombre')}" class="text-danger" th:errors="*{nombre}">Nombre Error</div>
+        </div>
+
+        <!-- Campo Teléfono -->
+        <div class="mb-3">
+            <label class="form-label">Teléfono</label>
+            <input type="text" th:field="*{telefono}" class="form-control" placeholder="Ingrese el teléfono del repartidor"/>
+            <div th:if="${#fields.hasErrors('telefono')}" class="text-danger" th:errors="*{telefono}">Teléfono Error</div>
+        </div>
+
+        <!-- Campo Vehículo -->
+        <div class="mb-3">
+            <label class="form-label">Vehículo</label>
+            <input type="text" th:field="*{vehiculo}" class="form-control" placeholder="Ingrese el tipo de vehículo"/>
+            <div th:if="${#fields.hasErrors('vehiculo')}" class="text-danger" th:errors="*{vehiculo}">Vehículo Error</div>
+        </div>
+
+        <!-- Campo Restaurante -->
+        <div class="mb-3">
+            <label class="form-label">Restaurante</label>
+            <select th:field="*{restaurante}" class="form-select">
+                <option value="" disabled selected>Seleccione un restaurante</option>
+                <option th:each="restaurante : ${restaurantes}"
+                        th:value="${restaurante}"
+                        th:text="${restaurante.nombre}">Restaurante</option>
+            </select>
+            <div th:if="${#fields.hasErrors('restaurante')}" class="text-danger" th:errors="*{restaurante}">Restaurante Error</div>
+        </div>
+
+        <!-- Botones de Guardar y Cancelar -->
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a th:href="@{/listarRepartidores}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
